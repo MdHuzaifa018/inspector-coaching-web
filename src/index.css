@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0F172A;
+  --color-secondary: #1E293B;
+  --color-accent: #2563EB;
+  --color-highlight: #06B6D4;
+  --color-success: #22C55E;
+  --color-background: #F8FAFC;
+  --color-text: #0F172A;
+
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
