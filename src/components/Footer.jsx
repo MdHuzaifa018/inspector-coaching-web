@@ -90,7 +90,7 @@ const Footer = () => {
               rel="noopener noreferrer" 
               className="hover:text-accent underline transition-all font-semibold"
             >
-              Md Huzaif Sheikh
+              Huzaif Sheikh & Rudra Raj
             </a>
             <a 
               href="https://wa.me/918434890116" 
