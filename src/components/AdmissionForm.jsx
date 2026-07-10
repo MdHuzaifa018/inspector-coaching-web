@@ -6,6 +6,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import { coursesAPI } from '../services/api';
+import { CONTACT_CONFIG } from '../config';
 
 const schema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters' }),
@@ -38,9 +39,23 @@ const AdmissionForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('/api/enquiries', data);
+      const apiUrl = import.meta.env.VITE_API_URL || '/api';
+      const response = await axios.post(`${apiUrl}/enquiries`, data);
       if (response.data.success) {
         toast.success('Your enquiry has been submitted successfully! We will contact you soon.');
+        
+        // Open WhatsApp with admission details
+        const text = `*New Admission Application*\n\n` +
+          `*Name:* ${data.name}\n` +
+          `*Phone:* ${data.phone}\n` +
+          `*Email:* ${data.email || 'N/A'}\n` +
+          `*Target Exam:* ${data.targetExam}\n` +
+          `*Message:* ${data.message || 'N/A'}`;
+        
+        const encodedText = encodeURIComponent(text);
+        const whatsappURL = `https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodedText}`;
+        window.open(whatsappURL, '_blank');
+
         reset();
       }
     } catch (error) {

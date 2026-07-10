@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import WhyChooseUs from '../components/sections/WhyChooseUs';
+import { CONTACT_CONFIG } from '../config';
 import BatchTimings from '../components/sections/BatchTimings';
 import AdmissionProcess from '../components/sections/AdmissionProcess';
 import TopRankers from '../components/sections/TopRankers';
@@ -415,7 +416,7 @@ const Home = () => {
                 <div className="flex text-amber-400 gap-1 mb-5">{[...Array(5)].map((_,j)=><FaStar key={j} className="text-sm"/>)}</div>
                 <p className="text-gray-700 text-base leading-relaxed mb-6 italic">"{t.text}"</p>
                 <div className="flex items-center gap-3">
-                  <img src={t.img} alt={t.name} className="w-12 h-12 rounded-full object-cover border-2 border-blue-100" />
+                  <img src={t.image || t.img} alt={t.name} className="w-12 h-12 rounded-full object-cover border-2 border-blue-100" />
                   <div>
                     <div className="font-bold text-slate-900">{t.name}</div>
                     <div className="text-blue-600 text-sm font-medium">{t.role}</div>
@@ -455,7 +456,7 @@ const Home = () => {
                   Apply For Admission →
                 </button>
                 <a
-                  href="https://wa.me/918252529139?text=Hello%2C%20I%20want%20to%20inquire%20about%20admission%20at%20Inspector's%20Academy"
+                  href={`https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent("Hello, I want to inquire about admission at Inspector's Academy")}`}
                   target="_blank" rel="noreferrer"
                   className="px-10 py-5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full font-black text-lg transition-all hover:scale-105 shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-2"
                 >

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaYoutube, FaTwitter, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
+import { CONTACT_CONFIG } from '../config';
 
 const Footer = () => {
   return (
@@ -66,15 +67,15 @@ const Footer = () => {
             <ul className="space-y-4 text-gray-400">
               <li>
                 <strong>Address:</strong><br />
-               Inspector's Academy,Patna,Bihar
+                {CONTACT_CONFIG.address}
               </li>
               <li>
                 <strong>Phone:</strong><br />
-                +91 8252529139
+                {CONTACT_CONFIG.phoneDisplay}
               </li>
               <li>
                 <strong>Email:</strong><br />
-                info@inspectorsacademy.com
+                {CONTACT_CONFIG.email}
               </li>
             </ul>
           </div>

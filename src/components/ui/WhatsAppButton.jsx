@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaWhatsapp } from 'react-icons/fa';
+import { CONTACT_CONFIG } from '../../config';
 
-const WhatsAppButton = ({ number = '918252529139', message = 'Hello! I want to inquire about admission at Inspector\'s Academy.' }) => (
+const WhatsAppButton = ({ number = CONTACT_CONFIG.whatsappNumber, message = 'Hello! I want to inquire about admission at Inspector\'s Academy.' }) => (
   <motion.a
     href={`https://wa.me/${number}?text=${encodeURIComponent(message)}`}
     target="_blank"

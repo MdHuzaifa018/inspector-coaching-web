@@ -6,6 +6,7 @@ import { z } from 'zod';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock, FaWhatsapp } from 'react-icons/fa';
+import { CONTACT_CONFIG } from '../config';
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -17,9 +18,9 @@ const schema = z.object({
 const fadeUp = { hidden: { opacity: 0, y: 30 }, show: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.6, delay: i * 0.1 } }) };
 
 const contactInfo = [
-  { icon: <FaMapMarkerAlt className="text-xl text-blue-500" />, label: 'Address', value: '123 Academy Lane, Police Line Area,\nLucknow, Uttar Pradesh — 226001' },
-  { icon: <FaPhone className="text-xl text-blue-500" />, label: 'Phone', value: '+91 8252529139' },
-  { icon: <FaEnvelope className="text-xl text-blue-500" />, label: 'Email', value: 'info@inspectorsacademy.com\nadmin@inspectorsacademy.com' },
+  { icon: <FaMapMarkerAlt className="text-xl text-blue-500" />, label: 'Address', value: CONTACT_CONFIG.address },
+  { icon: <FaPhone className="text-xl text-blue-500" />, label: 'Phone', value: CONTACT_CONFIG.phoneDisplay },
+  { icon: <FaEnvelope className="text-xl text-blue-500" />, label: 'Email', value: CONTACT_CONFIG.email },
   { icon: <FaClock className="text-xl text-blue-500" />, label: 'Office Hours', value: 'Mon – Sat: 7:00 AM – 8:00 PM\nSunday: 8:00 AM – 2:00 PM' },
 ];
 
@@ -30,6 +31,18 @@ const Contact = () => {
     try {
       await axios.post('/api/enquiries', { ...data, targetExam: 'General Enquiry' });
       toast.success('Message sent! We will contact you soon.');
+      
+      // Open WhatsApp with form details
+      const text = `*New Contact Enquiry*\n\n` +
+        `*Name:* ${data.name}\n` +
+        `*Phone:* ${data.phone}\n` +
+        `*Email:* ${data.email || 'N/A'}\n` +
+        `*Message:* ${data.message}`;
+      
+      const encodedText = encodeURIComponent(text);
+      const whatsappURL = `https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodedText}`;
+      window.open(whatsappURL, '_blank');
+
       reset();
     } catch {
       toast.error('Failed to send. Please try again.');
@@ -75,7 +88,7 @@ const Contact = () => {
                 ))}
               </div>
 
-              <a href="https://wa.me/918252529139" target="_blank" rel="noreferrer"
+              <a href={`https://wa.me/${CONTACT_CONFIG.whatsappNumber}`} target="_blank" rel="noreferrer"
                 className="inline-flex items-center gap-3 px-6 py-3.5 bg-green-500 hover:bg-green-600 text-white rounded-full font-bold transition-colors shadow-lg"
               >
                 <FaWhatsapp className="text-2xl" /> Chat on WhatsApp
