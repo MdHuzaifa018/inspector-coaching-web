@@ -20,7 +20,8 @@ const AdminLogin = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('/api/auth/login', data);
+      const apiUrl = import.meta.env.VITE_API_URL || '/api';
+      const response = await axios.post(`${apiUrl}/auth/login`, data);
       if (response.data.success) {
         localStorage.setItem('adminToken', response.data.token);
         toast.success('Login Successful');

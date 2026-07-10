@@ -29,7 +29,8 @@ const Contact = () => {
 
   const onSubmit = async (data) => {
     try {
-      await axios.post('/api/enquiries', { ...data, targetExam: 'General Enquiry' });
+      const apiUrl = import.meta.env.VITE_API_URL || '/api';
+      await axios.post(`${apiUrl}/enquiries`, { ...data, targetExam: 'General Enquiry' });
       toast.success('Message sent! We will contact you soon.');
       
       // Open WhatsApp with form details

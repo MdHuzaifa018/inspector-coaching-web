@@ -14,7 +14,8 @@ const Enquiries = () => {
   const fetchEnquiries = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await axios.get('/api/enquiries', {
+      const apiUrl = import.meta.env.VITE_API_URL || '/api';
+      const res = await axios.get(`${apiUrl}/enquiries`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setEnquiries(res.data.data);
@@ -28,7 +29,8 @@ const Enquiries = () => {
   const updateStatus = async (id, status) => {
     try {
       const token = localStorage.getItem('adminToken');
-      await axios.put(`/api/enquiries/${id}`, { status }, {
+      const apiUrl = import.meta.env.VITE_API_URL || '/api';
+      await axios.put(`${apiUrl}/enquiries/${id}`, { status }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Status updated');
@@ -42,7 +44,8 @@ const Enquiries = () => {
     if (!window.confirm('Are you sure you want to delete this enquiry?')) return;
     try {
       const token = localStorage.getItem('adminToken');
-      await axios.delete(`/api/enquiries/${id}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || '/api';
+      await axios.delete(`${apiUrl}/enquiries/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Enquiry deleted');
